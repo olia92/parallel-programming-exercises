@@ -37,7 +37,6 @@ main:
          Generating Tesla code
          37, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
              Generating reduction(+:sum)
-
 ```
 ```
 $ nvc++ -acc=multicore  accFill_ex2.cpp -Minfo -o accFill_mul
@@ -53,7 +52,6 @@ main:
      31, Loop is parallelizable
          Memory set idiom, loop replaced by call to __c_mset1
      37, Loop is parallelizable
-
 ```
 |    |  gpu       | multicore  | host      |
 |--- | ---        | ---        | ---       |
@@ -69,8 +67,6 @@ sys  |   0m0,145s |   0m0,472s |  0m0,386s |
   {
    for(int i=0; i < nCount; i++)
      status[i] = 1;
-
-   
    
 #pragma acc loop vector reduction(+:sum)
    for(int i=0; i < nCount; i++)
@@ -89,14 +85,12 @@ main:
          Generating Tesla code
          37, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
              Generating reduction(+:sum)
-ncount = 1000000000
 Sum = 1000000000
 Final sum is 1000 millions
 
 real    0m0,451s
 user    0m0,314s
 sys     0m0,117s
-
 ```
 ## Parallel Construct
 ```c++
@@ -105,15 +99,12 @@ sys     0m0,117s
 #pragma acc loop
    for(int i=0; i < nCount; i++)
      status[i] = 1;
-
-   // Sanity check to see that array is filled with ones
-   
+     
 #pragma acc loop vector reduction(+:sum)
    for(int i=0; i < nCount; i++)
      sum += status[i];
 } 
 ```
-
 ```
 $ nvc++ -acc -gpu=cc35 -Minfo=all accFill_ex1-2.cpp -o accFill_ex1-2 && time ./accFill_ex1-2
 main:
