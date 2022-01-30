@@ -21,23 +21,19 @@ int main(int argc, char *argv[])
    char *status = new char[nCount];
 
    // Here is where we fill the status vector
-   int sum=0;// Important to zero-initialize sum
-
-#pragma acc kernels create ( status[0:nCount] ) 
-  {
-   for(int i=0; i < nCount; i++)
-     status[i] = 1;
-
-   
-   
+   int sum=0; // Important to zero-initialize sum
+#pragma acc kernels create( status[0:nCount] ) 
+   {
+     for(int i=0; i < nCount; i++)
+       status[i] = 1;
 #pragma acc loop vector reduction(+:sum)
-   for(int i=0; i < nCount; i++)
-     sum += status[i];
-  }     
+     for(int i=0; i < nCount; i++)
+       sum += status[i];
+   }
    
    cout << "Final sum is " << (sum/1000000) << " millions" << endl;
-   
-// Sanity check to see that array is filled with ones
+
+   // Sanity check to see that array is filled with ones
    assert(sum == nCount);
    
    delete [] status;
