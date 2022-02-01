@@ -29,3 +29,21 @@ main:
 Duration 0.0205164 second
 Final sum is 4
 ```
+```
+$ g++ -O4 accTask.cpp  -o accTask && time ./accTask 4 10000
+Duration 3.7463e-05 second
+Final sum is 4
+
+real    0m0,002s
+user    0m0,002s
+sys     0m0,000s
+```
+```
+$ g++ -fopt-info accTask.cpp  -o accTask && time ./accTask 4 10000
+Duration 107.616 second
+Final sum is 4
+
+real    1m47,618s
+user    1m47,545s
+sys     0m0,020s
+```
